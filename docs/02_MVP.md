@@ -123,9 +123,9 @@ Every model is wrapped in a small class with a `detect_frame` or `predict` metho
 
 **Court mapping.** The 18 court keypoints are defined in meters. Detected keypoints are validated by comparing their pixel distance ratios to the real court ratios (80 percent tolerance). With at least four valid points, OpenCV computes a homography that maps each player's foot point to court meters. The last good homography is reused for short gaps.
 
-**Speed and distance.** Court positions are sampled every few frames. Distance is the sum of steps in meters, ignoring impossible jumps. Speed is distance over elapsed time, converted to km/h and smoothed.
+**Speed and distance.** Court positions are smoothed with a 9 frame moving average to remove box jitter, then sampled every 10 frames. Distance is the sum of steps in meters, ignoring impossible jumps (faster than 40 km/h, usually an ID switch). Speed is distance over elapsed time, converted to km/h.
 
-**Shots.** A flight segment starts when the holder loses the ball. It is a shot when the ball rises above the shooter's head by at least half the shooter's box height and lasts at least 8 frames. A parabola is fitted to the ball's image path. Release angle comes from the initial velocity of the fit. Apex height is converted to meters using the shooter's box height as a scale (default player height 2.0 m). Contest distance is the court distance from the shooter to the closest opponent at the release frame.
+**Shots.** A flight segment starts when the holder loses the ball. It is a shot when the ball rises above the shooter's head by at least 30 percent of the shooter's box height, comes back down after its peak, and stays visible for at least 8 frames. A parabola is fitted to the ball's image path, and the analyzer walks back along the arc to the true launch frame, because the ball is still within reach of the shooter for a few frames after it leaves the hand. Release angle comes from the launch velocity of the fit. Apex height is converted to meters using the shooter's box height as a scale (default player height 2.0 m). Contest distance is the court distance from the shooter to the closest opponent at the release frame.
 
 ## 7. Outputs
 
