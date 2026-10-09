@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "netvision"
+version = "1.0.0"
+description = "NBA computer vision shot tracker: players, ball, possession, passes, shot arc and release angle from broadcast video"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Doutche Mpindu" }]
+dependencies = [
+    "numpy>=1.24",
+    "opencv-python>=4.8",
+    "PyYAML>=6.0",
+    "supervision>=0.25",
+    "trackers>=2.0",
+    "ultralytics>=8.3",
+]
+
+[project.optional-dependencies]
+clip = ["transformers>=4.40", "Pillow>=10.0", "torch>=2.2"]
+dev = ["pytest>=8.0", "pytest-cov>=5.0"]
+
+[project.scripts]
+netvision = "netvision.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["netvision*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "slow: end to end tests that render video",
+    "real_model: needs YOLO weights and a real video (set NETVISION_REAL_VIDEO)",
+]
+filterwarnings = ["ignore::FutureWarning", "ignore::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["netvision"]
+omit = ["netvision/__main__.py"]

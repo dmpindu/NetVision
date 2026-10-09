@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Model weights, data and outputs are large: keep them out of git
+models/*.pt
+*.pt
+datasets/
+runs/
+stubs/
+output/
+output_videos/
+input_videos/*
+!input_videos/README.md
+
+.DS_Store
+.idea/
+.vscode/
