@@ -1,0 +1,77 @@
+# NetVision default configuration.
+# Copy this file, change what you need, and run:  python -m netvision video.mp4 --config my.yaml
+# Pixel thresholds are for 720p video and are scaled automatically for other sizes.
+
+models:
+  player_model: models/player_detector.pt
+  ball_model: models/ball_detector_model.pt
+  rim_model: models/rim_detector.pt
+  court_keypoint_model: models/court_keypoint_detector.pt
+  fallback_model: yolo11n.pt
+  court_calibration: null
+  player_class_names:
+  - player
+  - person
+  ball_class_names:
+  - ball
+  - basketball
+  - sports ball
+  rim_class_names:
+  - rim
+  - hoop
+  - basket
+  - basketball hoop
+  player_confidence: 0.5
+  ball_confidence: 0.15
+  rim_confidence: 0.3
+  keypoint_confidence: 0.5
+  device: null
+  batch_size: 16
+tracking:
+  tracker: bytetrack
+  lost_track_buffer: 60
+  track_activation_threshold: 0.5
+  minimum_matching_threshold: 0.1
+  ball_max_px_per_frame: 25.0
+  ball_max_interpolation_gap: 30
+team:
+  classifier: auto
+  clip_model: patrickjohncyh/fashion-clip
+  team1_label: white shirt
+  team2_label: dark blue shirt
+  sample_every_n_frames: 5
+  max_samples_per_track: 15
+  outlier_factor: 3.0
+  outlier_min_distance: 25.0
+possession:
+  possession_threshold_px: 50.0
+  min_possession_frames: 11
+  containment_threshold: 0.8
+  backfill_confirmed: true
+court:
+  length_m: 28.0
+  width_m: 15.0
+  keypoint_tolerance: 0.8
+  min_keypoints: 4
+  homography_carry_frames: 30
+  off_court_margin_m: 1.5
+metrics:
+  speed_window_frames: 10
+  position_smoothing_frames: 9
+  max_speed_kmh: 40.0
+  min_flight_frames: 8
+  max_flight_seconds: 3.0
+  min_rise_ratio: 0.3
+  min_descent_ratio: 0.25
+  player_height_m: 2.0
+  release_fit_frames: 6
+output:
+  output_dir: output
+  write_video: true
+  video_extension: .mp4
+  use_stubs: false
+  stub_dir: stubs
+  draw_keypoints: true
+  draw_tactical_view: true
+  tactical_view_width_px: 300
+max_frames: null
