@@ -1,0 +1,11 @@
+{
+  "_comment": "Pixel positions of court keypoints for a fixed camera. Keys are keypoint indices from netvision/court/geometry.py (0-5 left baseline, 6-7 half court line, 8-9 left free throw line, 10-15 right baseline, 16-17 right free throw line). At least 4 are needed. These values match the synthetic test clip.",
+  "keypoints": {
+    "0": [140, 250],
+    "5": [15, 690],
+    "6": [640, 690],
+    "7": [640, 250],
+    "10": [1265, 690],
+    "15": [1140, 250]
+  }
+}
